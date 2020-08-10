@@ -16,7 +16,9 @@ limitations under the License.
 
 package wardle
 
-import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
@@ -80,4 +82,42 @@ type FischerList struct {
 
 	// Items is a list of Fischers
 	Items []Fischer
+}
+
+type CustomerList struct {
+	metav1.TypeMeta
+	metav1.ListMeta
+
+	Items []Customer
+}
+
+type Customer struct {
+	metav1.TypeMeta
+	metav1.ObjectMeta
+
+	Spec   CustomerSpec
+	Status CustomerStatus
+}
+
+type CustomerAddress struct {
+	addressType string
+	city        string
+	postalcode  string
+	street      string
+}
+
+type CustomerSpec struct {
+	firstname string
+	lastname  string
+	email     string
+	addresses []CustomerAddress
+}
+
+type CustomerStatus struct {
+	verificationStatusValues []verificationStatusValue
+}
+
+type verificationStatusValue struct {
+	address            CustomerAddress
+	verificationStatus bool
 }
