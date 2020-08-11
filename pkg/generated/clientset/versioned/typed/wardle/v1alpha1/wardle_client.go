@@ -26,6 +26,7 @@ import (
 
 type WardleV1alpha1Interface interface {
 	RESTClient() rest.Interface
+	CustomersGetter
 	FischersGetter
 	FlundersGetter
 }
@@ -33,6 +34,10 @@ type WardleV1alpha1Interface interface {
 // WardleV1alpha1Client is used to interact with features provided by the wardle.example.com group.
 type WardleV1alpha1Client struct {
 	restClient rest.Interface
+}
+
+func (c *WardleV1alpha1Client) Customers(namespace string) CustomerInterface {
+	return newCustomers(c, namespace)
 }
 
 func (c *WardleV1alpha1Client) Fischers() FischerInterface {

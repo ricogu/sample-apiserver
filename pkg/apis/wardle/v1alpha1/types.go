@@ -78,3 +78,46 @@ type FischerList struct {
 
 	Items []Fischer `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// CustomerList is a list of Customer objects.
+type CustomerList struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	// Items is a list of Customers
+	Items []Customer `json:"items"`
+}
+
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+type Customer struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Spec   CustomerSpec   `json:"spec,omitempty"`
+	Status CustomerStatus `json:"status,omitempty"`
+}
+
+type CustomerAddress struct {
+	AddressType string `json:"addressType,omitempty"`
+	City        string `json:"city,omitempty"`
+	Postalcode  string `json:"postalcode,omitempty"`
+	Street      string `json:"street,omitempty"`
+}
+
+type CustomerSpec struct {
+	Firstname string            `json:"firstname,omitempty"`
+	Lastname  string            `json:"lastname,omitempty"`
+	Email     string            `json:"email,omitempty"`
+	Addresses []CustomerAddress `json:"addresses,omitempty"`
+}
+
+type CustomerStatus struct {
+	VerificationStatusValues []verificationStatusValue `json:"verificationStatusValues,omitempty"`
+}
+
+type verificationStatusValue struct {
+	Address            CustomerAddress `json:"address,omitempty"`
+	VerificationStatus bool            `json:"verificationStatus,omitempty"`
+}

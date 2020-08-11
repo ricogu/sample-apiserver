@@ -84,13 +84,18 @@ type FischerList struct {
 	Items []Fischer
 }
 
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// CustomerList is a list of Customer objects.
 type CustomerList struct {
 	metav1.TypeMeta
 	metav1.ListMeta
 
+	// Items is a list of Customers
 	Items []Customer
 }
 
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type Customer struct {
 	metav1.TypeMeta
 	metav1.ObjectMeta

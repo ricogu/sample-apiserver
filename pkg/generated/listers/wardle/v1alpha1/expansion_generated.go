@@ -18,6 +18,14 @@ limitations under the License.
 
 package v1alpha1
 
+// CustomerListerExpansion allows custom methods to be added to
+// CustomerLister.
+type CustomerListerExpansion interface{}
+
+// CustomerNamespaceListerExpansion allows custom methods to be added to
+// CustomerNamespaceLister.
+type CustomerNamespaceListerExpansion interface{}
+
 // FischerListerExpansion allows custom methods to be added to
 // FischerLister.
 type FischerListerExpansion interface{}
